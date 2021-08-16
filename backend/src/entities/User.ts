@@ -9,7 +9,6 @@ import {
   BeforeUpdate,
 } from 'typeorm';
 
-import { IUser } from '../@types/entities';
 import { Address } from './Address';
 import { Occurrence } from './Occurrence';
 
@@ -17,7 +16,7 @@ import uuid from '../libs/uuid';
 import { hash } from '../libs/bcrypt';
 
 @Entity('users')
-export class User implements IUser {
+export class User {
   @PrimaryColumn()
   readonly id: string;
 

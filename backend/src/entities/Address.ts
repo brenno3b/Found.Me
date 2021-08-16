@@ -1,11 +1,9 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-import { IAddress } from '../@types/entities';
-
 import uuid from '../libs/uuid';
 
 @Entity('address')
-export class Address implements IAddress {
+export class Address {
   @PrimaryColumn()
   readonly id: string;
 

@@ -1,4 +1,4 @@
-import { getCustomRepository } from 'typeorm';
+import { Entity, getCustomRepository } from 'typeorm';
 
 import { IRequest } from '../../@types/services';
 

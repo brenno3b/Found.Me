@@ -1,11 +1,18 @@
 import { Request, Response } from 'express';
 
-import { IUserController } from '../@types/controllers';
-
 import CreateUserService from '../service/user/CreateUserService';
+import ShowByIdUserService from '../service/user/ShowByIdUserService';
 
-class UserController implements IUserController {
-  async showById(request: Request, response: Response) {}
+class UserController {
+  async showById(request: Request, response: Response) {
+    const userID = request.params.id;
+
+    const showByIdUserService = new ShowByIdUserService();
+
+    const user = await showByIdUserService.execute(userID);
+
+    return response.json(user);
+  }
 
   async create(request: Request, response: Response) {
     const createUserService = new CreateUserService();

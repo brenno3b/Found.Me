@@ -1,3 +1,5 @@
+import { IAddress } from '../entities';
+
 export interface IRequest {
   id?: number;
 
@@ -17,5 +19,5 @@ export interface IRequest {
 
   secondPhoneNumber?: string;
 
-  address: Object;
+  address: IAddress;
 }

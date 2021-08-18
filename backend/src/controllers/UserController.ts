@@ -22,9 +22,13 @@ class UserController {
     return response.status(201).json(user);
   }
 
-  async update(request: Request, response: Response) {}
+  async update(request: Request, response: Response) {
+    return response.sendStatus(200);
+  }
 
-  async delete(request: Request, response: Response) {}
+  async delete(request: Request, response: Response) {
+    return response.sendStatus(204);
+  }
 }
 
 export default UserController;

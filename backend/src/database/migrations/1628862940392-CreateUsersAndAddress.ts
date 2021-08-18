@@ -26,6 +26,7 @@ export class CreateUser1628862940392 implements MigrationInterface {
           {
             name: 'complement',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'neighborhood',

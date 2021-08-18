@@ -1,4 +1,4 @@
-import { Entity, getCustomRepository } from 'typeorm';
+import { getCustomRepository } from 'typeorm';
 
 import { IRequest } from '../../@types/services';
 
@@ -28,6 +28,16 @@ export default class CreateUserService {
       address,
     } = request;
 
+    const {
+      postalCode,
+      street,
+      number,
+      complement = null,
+      neighborhood,
+      city,
+      uf,
+    } = address;
+
     if (!isEmailValid(mainEmail)) throw new AppError('Invalid e-mail !');
     if (!isEmailValid(secondEmail) && secondEmail !== null) {
       throw new AppError('Invalid second e-mail !');
@@ -42,17 +52,16 @@ export default class CreateUserService {
       throw new AppError('Invalid second phone !');
     }
 
+    const whereOption = secondEmail
+      ? [{ mainEmail }, { secondEmail }]
+      : [{ mainEmail }];
+
     const emailAlreadyExists = await usersRepository.find({
       select: ['mainEmail', 'secondEmail'],
-      where: [
-        {
-          mainEmail,
-        },
-        {
-          secondEmail,
-        },
-      ],
+      where: whereOption,
     });
+
+    console.log(emailAlreadyExists);
 
     if (emailAlreadyExists.length !== 0) {
       throw new AppError('E-mail already registered !');
@@ -67,7 +76,16 @@ export default class CreateUserService {
       throw new AppError('CPF already registered !');
     }
 
-    const userAddress = addressRepository.create(address);
+    const userAddress = addressRepository.create({
+      postalCode,
+      street,
+      number,
+      complement,
+      neighborhood,
+      city,
+      uf,
+    });
+
     await addressRepository.save(userAddress);
 
     const user = usersRepository.create({
